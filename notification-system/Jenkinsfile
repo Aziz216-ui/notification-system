@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    tools {
+        maven 'M2_HOME'
+    }
+    stages {
+        stage('GIT') {
+            steps {
+                git branch: 'main',
+                        url: 'https://github.com/Aziz216-ui/notification-system'
+            }
+        }
+
+        stage('MAVEN') {
+            steps {
+                sh "mvn -version"
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build réussi ✅'
+        }
+        failure {
+            echo 'Build échoué ❌'
+        }
+    }
+}
